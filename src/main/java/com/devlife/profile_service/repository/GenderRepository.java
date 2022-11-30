@@ -1,4 +1,4 @@
-package com.devlife.profile_service.entity.repository;
+package com.devlife.profile_service.repository;
 
 import com.devlife.profile_service.entity.Gender;
 import org.springframework.data.jpa.repository.JpaRepository;
