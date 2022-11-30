@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.devlife</groupId>
-    <artifactId>pf_sql_controller</artifactId>
+    <artifactId>profile_service_controller</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>pf_sql_controller</name>
-    <description>pf_sql_controller</description>
+    <name>profile_service_controller</name>
+    <description>profile_service_controller</description>
     <properties>
         <java.version>17</java.version>
         <spring-cloud.version>2021.0.1</spring-cloud.version>
@@ -152,7 +152,7 @@
                 </configuration>
             </plugin>
         </plugins>
-        <finalName>pf_analytic_service</finalName>
+        <finalName>profile_service</finalName>
     </build>
 
 </project>
