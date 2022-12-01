@@ -1,26 +1,21 @@
 package com.devlife.profile_service.mapper;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.devlife.profile_service.dto.GenderDto;
+import com.devlife.profile_service.entity.Gender;
+import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
+import org.springframework.stereotype.Component;
 
-import javax.persistence.*;
-
-@Entity
-@Table(name = "prf_genders")
-@Data
-@AllArgsConstructor
-@Builder
-@NoArgsConstructor
+@Component
+@RequiredArgsConstructor
 public class GenderMapper {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "gender_id_seq")
-    @SequenceGenerator(name = "gender_id_seq", sequenceName = "gender_id_seq", allocationSize = 1)
-    private Long id;
-
-    @Column(name = "name")
-    private String name;
+    private final ModelMapper mapper;
+    public Gender convertToEntity(GenderDto genderDto) {
+        return mapper.map(genderDto, Gender.class);
+    }
+    public GenderDto convertToDto(Gender genderEntity) {
+        return mapper.map(genderEntity, GenderDto.class);
+    }
 
 }

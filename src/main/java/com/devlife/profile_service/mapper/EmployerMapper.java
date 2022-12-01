@@ -1,29 +1,21 @@
 package com.devlife.profile_service.mapper;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.devlife.profile_service.dto.EmployerDto;
+import com.devlife.profile_service.entity.Employer;
+import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
+import org.springframework.stereotype.Component;
 
-import javax.persistence.*;
-
-@Entity
-@Table(name = "prf_employers")
-@Data
-@AllArgsConstructor
-@Builder
-@NoArgsConstructor
+@Component
+@RequiredArgsConstructor
 public class EmployerMapper {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "employer_id_seq")
-    @SequenceGenerator(name = "employer_id_seq", sequenceName = "employer_id_seq", allocationSize = 1)
-    private Long id;
-
-    @Column(name = "name")
-    private String name;
-
-    @Column(name = "external_id")
-    private Long externalId;
+    private final ModelMapper mapper;
+    public Employer convertToEntity(EmployerDto employerDto) {
+        return mapper.map(employerDto, Employer.class);
+    }
+    public EmployerDto convertToDto(Employer employerEntity) {
+        return mapper.map(employerEntity, EmployerDto.class);
+    }
 
 }

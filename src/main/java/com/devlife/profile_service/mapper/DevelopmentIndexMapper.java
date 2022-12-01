@@ -1,35 +1,21 @@
 package com.devlife.profile_service.mapper;
 
-import com.devlife.profile_service.entity.Profile;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.devlife.profile_service.dto.DevelopmentIndexDto;
+import com.devlife.profile_service.entity.DevelopmentIndex;
+import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
+import org.springframework.stereotype.Component;
 
-import javax.persistence.*;
-import java.math.BigDecimal;
-
-@Entity
-@Table(name = "prf_development_index")
-@Data
-@AllArgsConstructor
-@Builder
-@NoArgsConstructor
+@Component
+@RequiredArgsConstructor
 public class DevelopmentIndexMapper {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "developmentIndex_id_seq")
-    @SequenceGenerator(name = "developmentIndex_id_seq", sequenceName = "developmentIndex_id_seq", allocationSize = 1)
-    private Long id;
-
-    @Column(name = "external_id")
-    private Long externalId;
-
-    @Column(name = "value")
-    private BigDecimal value;
-
-    @ManyToOne(targetEntity = Profile.class)
-    @JoinColumn(name = "profile_id")
-    private Profile profile;
+    private final ModelMapper mapper;
+    public DevelopmentIndex convertToEntity(DevelopmentIndexDto developmentIndexDto) {
+        return mapper.map(developmentIndexDto, DevelopmentIndex.class);
+    }
+    public DevelopmentIndexDto convertToDto(DevelopmentIndex developmentIndexEntity) {
+        return mapper.map(developmentIndexEntity, DevelopmentIndexDto.class);
+    }
 
 }

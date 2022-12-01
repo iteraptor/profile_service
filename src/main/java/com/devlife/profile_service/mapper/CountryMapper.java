@@ -1,26 +1,21 @@
 package com.devlife.profile_service.mapper;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.devlife.profile_service.dto.CountryDto;
+import com.devlife.profile_service.entity.Country;
+import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
+import org.springframework.stereotype.Component;
 
-import javax.persistence.*;
-
-@Entity
-@Table(name = "prf_countries")
-@Data
-@AllArgsConstructor
-@Builder
-@NoArgsConstructor
+@Component
+@RequiredArgsConstructor
 public class CountryMapper {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "country_id_seq")
-    @SequenceGenerator(name = "country_id_seq", sequenceName = "country_id_seq", allocationSize = 1)
-    private Long id;
-
-    @Column(name = "name")
-    private String name;
+    private final ModelMapper mapper;
+    public Country convertToEntity(CountryDto countryDto) {
+        return mapper.map(countryDto, Country.class);
+    }
+    public CountryDto convertToDto(Country countryEntity) {
+        return mapper.map(countryEntity, CountryDto.class);
+    }
 
 }
