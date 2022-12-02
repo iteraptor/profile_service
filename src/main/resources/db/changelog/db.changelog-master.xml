@@ -5,5 +5,18 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
     <include file="db/changelog/create_schema.sql"/>
-
+    <include file="db/changelog/table/1.00.01-prf_countries.xml"/>
+    <include file="db/changelog/table/1.00.01-prf_cities.xml"/>
+    <include file="db/changelog/table/1.00.01-prf_avatars.xml"/>
+    <include file="db/changelog/table/1.00.01-prf_employers.xml"/>
+    <include file="db/changelog/table/1.00.01-prf_genders.xml"/>
+    <include file="db/changelog/table/1.00.01-prf_profile.xml"/>
+    <include file="db/changelog/table/1.00.01-prf_authorizations.xml"/>
+    <include file="db/changelog/table/1.00.01-prf_contact_types.xml"/>
+    <include file="db/changelog/table/1.00.01-prf_contact_information.xml"/>
+    <include file="db/changelog/table/1.00.01-prf_contacts_list.xml"/>
+    <include file="db/changelog/table/1.00.01-prf_development_index.xml"/>
+    <include file="db/changelog/table/1.00.01-prf_educations.xml"/>
+    <include file="db/changelog/table/1.00.01-prf_personal_settings.xml"/>
+    <include file="db/changelog/table/1.00.01-prf_skills.xml"/>
 </databaseChangeLog>

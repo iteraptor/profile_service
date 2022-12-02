@@ -36,4 +36,8 @@ public class Education {
 
     @Column(name = "educational_institution")
     private String educationalInstitution;
+
+    @Column(name = "external_id")
+    private Long externalId;
+
 }

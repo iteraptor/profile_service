@@ -17,8 +17,8 @@ import java.time.LocalDate;
 public class Authorization {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "profile_id_seq")
-    @SequenceGenerator(name = "profile_id_seq", sequenceName = "profile_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "auth_id_seq")
+    @SequenceGenerator(name = "auth_id_seq", sequenceName = "auth_id_seq", allocationSize = 1)
     private Long id;
 
     @ManyToOne(targetEntity = Authorization.class)
