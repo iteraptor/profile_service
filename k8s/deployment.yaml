@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: pf-analytic-service
+  name: profile-service
   labels:
-    app: pf-analytic-service
+    app: profile-service
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: pf-analytic-service
+      app: profile-service
   template:
     metadata:
       labels:
-        app: pf-analytic-service
+        app: profile-service
     spec:
       containers:
-      - name: pf-analytic-service
+      - name: profile-service
         image: devlifestartup/ENV_JOB_BASE_NAME:ENV_VERSION.ENV_BUILD_NUMBER
         ports:
         - containerPort: 8088
@@ -32,10 +32,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: pf-analytic-service
+  name: profile-service
 spec:
   selector:
-    app: pf-analytic-service
+    app: profile-service
   ports:
     - protocol: TCP
       port: 80
