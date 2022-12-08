@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+    <property dbms="postgresql,mssql,oracle" value="false" name="autoIncrement"/>
+    <property dbms="h2" value="true" name="autoIncrement"/>
+
+    <changeSet id="1.00.01-prf_profile-0001" author="Bofh82" runInTransaction="false">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <sequenceExists sequenceName="skill_id_seq" schemaName="prf"/>
+            </not>
+        </preConditions>
+        <createSequence sequenceName="skill_id_seq" schemaName="prf" startValue="1" incrementBy="1"/>
+    </changeSet>
+
+    <changeSet id="1.00.01-prf_profile-0002" author="Bofh82" failOnError="true" >
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="prf_profile" schemaName="prf"/>
+            </not>
+        </preConditions>
+        <createTable tableName="prf_profile" schemaName="prf">
+            <column name="id" type="bigint" defaultValueSequenceNext="skill_id_seq">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="nick_name" type="varchar(30)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="first_name" type="varchar(255)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="middle_name" type="varchar(255)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="last_name" type="varchar(255)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="date_of_birth" type="date">
+                <constraints nullable="true"/>
+            </column>
+            <column name="gender_id" type="bigint">
+                <constraints foreignKeyName="fk_prf_profile_gender_id" referencedTableName="prf_genders" referencedTableSchemaName="prf" referencedColumnNames="id"
+                             nullable="false"/>
+            </column>
+            <column name="country_id" type="bigint">
+                <constraints foreignKeyName="fk_prf_profile_country_id" referencedTableName="prf_countries" referencedTableSchemaName="prf" referencedColumnNames="id"
+                             nullable="false"/>
+            </column>
+            <column name="city_id" type="bigint">
+                <constraints foreignKeyName="fk_prf_profile_city_id" referencedTableName="prf_cities" referencedTableSchemaName="prf" referencedColumnNames="id"
+                             nullable="false"/>
+            </column>
+            <column name="avatar_id" type="bigint">
+                <constraints foreignKeyName="fk_prf_profile_avatar_id" referencedTableName="prf_avatars" referencedTableSchemaName="prf" referencedColumnNames="id"
+                             nullable="false"/>
+            </column>
+            <column name="current_employer_id" type="bigint">
+                <constraints foreignKeyName="fk_prf_profile_employer_id" referencedTableName="prf_employers" referencedTableSchemaName="prf" referencedColumnNames="id"
+                             nullable="false"/>
+            </column>
+            <column name="personal_information" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="Bofh82" id="1.00.01-prf_profile-0003">
+        <preConditions onFail="MARK_RAN">
+            <and>
+                <tableExists tableName="prf_profile" schemaName="prf"/>
+                <not>
+                    <indexExists indexName="prf_profile_index_0" schemaName="prf"/>
+                </not>
+            </and>
+        </preConditions>
+        <createIndex indexName="prf_profile_index_0" tableName="prf_profile" schemaName="prf" clustered="true">
+            <column name="id"/>
+        </createIndex>
+    </changeSet>
+</databaseChangeLog>

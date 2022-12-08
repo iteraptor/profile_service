@@ -15,8 +15,8 @@ import javax.persistence.*;
 @NoArgsConstructor
 public class ContactInformation {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "contact_information_id_seq")
-    @SequenceGenerator(name = "contact_information_id_seq", sequenceName = "contact_information_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "contactInformation_id_seq")
+    @SequenceGenerator(name = "contactInformation_id_seq", sequenceName = "contactInformation_id_seq", allocationSize = 1)
     private Long id;
 
     @ManyToOne(targetEntity = ContactType.class)

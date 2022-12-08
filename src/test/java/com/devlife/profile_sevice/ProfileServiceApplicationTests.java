@@ -1,4 +1,4 @@
-//package com.devlife.pf_sql_controller;
+//package com.devlife.profile_service_controller;
 //
 //import org.junit.jupiter.api.Test;
 //import org.springframework.boot.test.context.SpringBootTest;
