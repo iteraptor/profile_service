@@ -9,27 +9,27 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("api/v1/")
+@RequestMapping("api/v1/employer")
 public class EmployerController {
 
     private final EmployerService service;
 
-    @PutMapping("employer")
+    @PutMapping
     Long addEmployer(@RequestBody EmployerDto employerDto) {
         return service.addEmployer(employerDto);
     }
 
-    @GetMapping("employer/{id}")
+    @GetMapping("/{id}")
     EmployerDto getEmployer(@PathVariable("id") Long id) {
         return (service.getEmployer(id));
     }
 
-    @GetMapping("employer")
+    @GetMapping
     List<EmployerDto> getAllEmployers() {
         return service.getAllEmployers();
     }
 
-    @DeleteMapping("employer/{id}")
+    @DeleteMapping("/{id}")
     Boolean deleteEmployerById(@PathVariable("id") Long id) {
         return service.deleteEmployerById(id);
     }

@@ -9,27 +9,27 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("api/v1/")
+@RequestMapping("api/v1/developmentIndex")
 public class DevelopmentIndexController {
 
     private final DevelopmentIndexService service;
 
-    @PutMapping("developmentIndex")
+    @PutMapping
     Long addDevelopmentIndex(@RequestBody DevelopmentIndexDto developmentIndexDto) {
         return service.addDevelopmentIndex(developmentIndexDto);
     }
 
-    @GetMapping("developmentIndex/{id}")
+    @GetMapping("/{id}")
     DevelopmentIndexDto getDevelopmentIndex(@PathVariable("id") Long id) {
         return (service.getDevelopmentIndex(id));
     }
 
-    @GetMapping("developmentIndex")
+    @GetMapping
     List<DevelopmentIndexDto> getAllDevelopmentIndexes() {
         return service.getAllDevelopmentIndexes();
     }
 
-    @DeleteMapping("developmentIndex/{id}")
+    @DeleteMapping("/{id}")
     Boolean deleteDevelopmentIndexById(@PathVariable("id") Long id) {
         return service.deleteDevelopmentIndexById(id);
     }

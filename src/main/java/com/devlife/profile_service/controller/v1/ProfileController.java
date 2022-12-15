@@ -9,27 +9,27 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("api/v1/")
+@RequestMapping("api/v1/profile")
 public class ProfileController {
 
     private final ProfileService service;
 
-    @PutMapping("profile")
+    @PutMapping
     Long addProfile(@RequestBody ProfileDto profileDto) {
         return service.addProfile(profileDto);
     }
 
-    @GetMapping("profile/{id}")
+    @GetMapping("/{id}")
     ProfileDto getProfile(@PathVariable("id") Long id) {
         return (service.getProfile(id));
     }
 
-    @GetMapping("profile")
+    @GetMapping
     List<ProfileDto> getAllProfiles() {
         return service.getAllProfiles();
     }
 
-    @DeleteMapping("profile/{id}")
+    @DeleteMapping("/{id}")
     Boolean deleteProfileById(@PathVariable("id") Long id) {
         return service.deleteProfileById(id);
     }

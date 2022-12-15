@@ -9,27 +9,27 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("api/v1/")
+@RequestMapping("api/v1/skill")
 public class SkillController {
 
     private final SkillService service;
 
-    @PutMapping("skill")
+    @PutMapping
     Long addSkill(@RequestBody SkillDto skillDto) {
         return service.addSkill(skillDto);
     }
 
-    @GetMapping("skill/{id}")
+    @GetMapping("/{id}")
     SkillDto getSkill(@PathVariable("id") Long id) {
         return (service.getSkill(id));
     }
 
-    @GetMapping("skill")
+    @GetMapping
     List<SkillDto> getAllSkills() {
         return service.getAllSkills();
     }
 
-    @DeleteMapping("skill/{id}")
+    @DeleteMapping("/{id}")
     Boolean deleteSkillById(@PathVariable("id") Long id) {
         return service.deleteSkillById(id);
     }

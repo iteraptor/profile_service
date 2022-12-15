@@ -11,27 +11,27 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("api/v1/")
+@RequestMapping("api/v1/personalSetting")
 public class PersonalSettingController {
 
     private final PersonalSettingService service;
 
-    @PutMapping("personalSetting")
+    @PutMapping
     Long addPersonalSetting(@RequestBody PersonalSettingDto personalSettingDto) {
         return service.addPersonalSetting(personalSettingDto);
     }
 
-    @GetMapping("personalSetting/{id}")
+    @GetMapping("/{id}")
     PersonalSettingDto getPersonalSetting(@PathVariable("id") Long id) {
         return (service.getPersonalSetting(id));
     }
 
-    @GetMapping("personalSetting")
+    @GetMapping
     List<PersonalSettingDto> getAllPersonalSettings() {
         return service.getAllPersonalSettings();
     }
 
-    @DeleteMapping("personalSetting/{id}")
+    @DeleteMapping("/{id}")
     Boolean deletePersonalSettingById(@PathVariable("id") Long id) {
         return service.deletePersonalSettingById(id);
     }

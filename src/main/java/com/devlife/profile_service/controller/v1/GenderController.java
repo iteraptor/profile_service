@@ -9,27 +9,27 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("api/v1/")
+@RequestMapping("api/v1/gender")
 public class GenderController {
 
     private final GenderService service;
 
-    @PutMapping("gender")
+    @PutMapping
     Long addGender(@RequestBody GenderDto genderDto) {
         return service.addGender(genderDto);
     }
 
-    @GetMapping("gender/{id}")
+    @GetMapping("/{id}")
     GenderDto getGender(@PathVariable("id") Long id) {
         return (service.getGender(id));
     }
 
-    @GetMapping("gender")
+    @GetMapping
     List<GenderDto> getAllGenders() {
         return service.getAllGenders();
     }
 
-    @DeleteMapping("gender/{id}")
+    @DeleteMapping("/{id}")
     Boolean deleteGenderById(@PathVariable("id") Long id) {
         return service.deleteGenderById(id);
     }

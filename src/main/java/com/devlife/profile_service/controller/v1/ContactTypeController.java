@@ -9,27 +9,27 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("api/v1/")
+@RequestMapping("api/v1/contactType")
 public class ContactTypeController {
 
     private final ContactTypeService service;
 
-    @PutMapping("contactType")
+    @PutMapping
     Long addContactType(@RequestBody ContactTypeDto contactTypeDto) {
         return service.addContactType(contactTypeDto);
     }
 
-    @GetMapping("contactType/{id}")
+    @GetMapping("/{id}")
     ContactTypeDto getContactType(@PathVariable("id") Long id) {
         return (service.getContactType(id));
     }
 
-    @GetMapping("contactType")
+    @GetMapping
     List<ContactTypeDto> getAllContactTypes() {
         return service.getAllContactTypes();
     }
 
-    @DeleteMapping("contactType/{id}")
+    @DeleteMapping("/{id}")
     Boolean deleteContactTypeById(@PathVariable("id") Long id) {
         return service.deleteContactTypeById(id);
     }

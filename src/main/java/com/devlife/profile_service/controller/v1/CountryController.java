@@ -9,27 +9,27 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("api/v1/")
+@RequestMapping("api/v1/country")
 public class CountryController {
 
     private final CountryService service;
 
-    @PutMapping("country")
+    @PutMapping
     Long addCountry(@RequestBody CountryDto countryDto) {
         return service.addCountry(countryDto);
     }
 
-    @GetMapping("country/{id}")
+    @GetMapping("/{id}")
     CountryDto getCountry(@PathVariable("id") Long id) {
         return (service.getCountry(id));
     }
 
-    @GetMapping("country")
+    @GetMapping
     List<CountryDto> getAllCountries() {
         return service.getAllCountries();
     }
 
-    @DeleteMapping("country/{id}")
+    @DeleteMapping("/{id}")
     Boolean deleteCountryById(@PathVariable("id") Long id) {
         return service.deleteCountryById(id);
     }
