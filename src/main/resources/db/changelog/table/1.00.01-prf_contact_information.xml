@@ -8,19 +8,19 @@
     <changeSet id="1.00.01-prf_contact_information-0001" author="Bofh82" runInTransaction="false">
         <preConditions onFail="MARK_RAN">
             <not>
-                <sequenceExists sequenceName="contact_information_id_seq" schemaName="prf"/>
+                <sequenceExists sequenceName="contact_information_id_seq"/>
             </not>
         </preConditions>
-        <createSequence sequenceName="contact_information_id_seq" schemaName="prf" startValue="1" incrementBy="1"/>
+        <createSequence sequenceName="contact_information_id_seq"  startValue="1" incrementBy="1"/>
     </changeSet>
 
     <changeSet id="1.00.01-prf_contact_information-0002" author="Bofh82" failOnError="true" >
         <preConditions onFail="MARK_RAN">
             <not>
-                <tableExists tableName="prf_contact_information" schemaName="prf"/>
+                <tableExists tableName="prf_contact_information"/>
             </not>
         </preConditions>
-        <createTable tableName="prf_contact_information" schemaName="prf">
+        <createTable tableName="prf_contact_information" >
             <column name="id" type="bigint" defaultValueSequenceNext="contact_information_id_seq">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
@@ -47,24 +47,24 @@
     <changeSet author="Bofh82" id="1.00.01-prf_contact_information-0003">
         <preConditions onFail="MARK_RAN">
             <and>
-                <tableExists tableName="prf_contact_information" schemaName="prf"/>
+                <tableExists tableName="prf_contact_information"/>
                 <not>
-                    <indexExists indexName="prf_contact_information_index_0" schemaName="prf"/>
-                    <indexExists indexName="prf_contact_information_index_1" schemaName="prf"/>
-                    <indexExists indexName="prf_contact_information_index_2" schemaName="prf"/>
+                    <indexExists indexName="prf_contact_information_index_0"/>
+                    <indexExists indexName="prf_contact_information_index_1"/>
+                    <indexExists indexName="prf_contact_information_index_2"/>
                 </not>
             </and>
         </preConditions>
-        <createIndex indexName="prf_contact_information_index_0" tableName="prf_contact_information" schemaName="prf" clustered="true">
+        <createIndex indexName="prf_contact_information_index_0" tableName="prf_contact_information"  clustered="true">
             <column name="id"/>
             <column name="profile_id"/>
         </createIndex>
-        <createIndex indexName="prf_contact_information_index_1" tableName="prf_contact_information" schemaName="prf" clustered="true" unique="true">
+        <createIndex indexName="prf_contact_information_index_1" tableName="prf_contact_information"  clustered="true" unique="true">
             <column name="profile_id"/>
             <column name="contact_type_id"/>
             <column name="primary"/>
         </createIndex>
-        <createIndex indexName="prf_contact_information_index_2" tableName="prf_contact_information" schemaName="prf" clustered="true" unique="true">
+        <createIndex indexName="prf_contact_information_index_2" tableName="prf_contact_information"  clustered="true" unique="true">
             <column name="profile_id"/>
             <column name="contact_type_id"/>
             <column name="for_auth"/>

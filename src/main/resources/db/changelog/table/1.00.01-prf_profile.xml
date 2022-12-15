@@ -8,24 +8,24 @@
     <changeSet id="1.00.01-prf_profile-0001" author="Bofh82" runInTransaction="false">
         <preConditions onFail="MARK_RAN">
             <not>
-                <sequenceExists sequenceName="skill_id_seq" schemaName="prf"/>
+                <sequenceExists sequenceName="skill_id_seq"/>
             </not>
         </preConditions>
-        <createSequence sequenceName="skill_id_seq" schemaName="prf" startValue="1" incrementBy="1"/>
+        <createSequence sequenceName="skill_id_seq"  startValue="1" incrementBy="1"/>
     </changeSet>
 
     <changeSet id="1.00.01-prf_profile-0002" author="Bofh82" failOnError="true" >
         <preConditions onFail="MARK_RAN">
             <not>
-                <tableExists tableName="prf_profile" schemaName="prf"/>
+                <tableExists tableName="prf_profile"/>
             </not>
         </preConditions>
-        <createTable tableName="prf_profile" schemaName="prf">
+        <createTable tableName="prf_profile" >
             <column name="id" type="bigint" defaultValueSequenceNext="skill_id_seq">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="nick_name" type="varchar(30)">
-                <constraints nullable="false"/>
+                <constraints nullable="true"/>
             </column>
             <column name="first_name" type="varchar(255)">
                 <constraints nullable="true"/>
@@ -41,26 +41,26 @@
             </column>
             <column name="gender_id" type="bigint">
                 <constraints foreignKeyName="fk_prf_profile_gender_id" referencedTableName="prf_genders" referencedTableSchemaName="prf" referencedColumnNames="id"
-                             nullable="false"/>
+                             nullable="true"/>
             </column>
             <column name="country_id" type="bigint">
                 <constraints foreignKeyName="fk_prf_profile_country_id" referencedTableName="prf_countries" referencedTableSchemaName="prf" referencedColumnNames="id"
-                             nullable="false"/>
+                             nullable="true"/>
             </column>
             <column name="city_id" type="bigint">
                 <constraints foreignKeyName="fk_prf_profile_city_id" referencedTableName="prf_cities" referencedTableSchemaName="prf" referencedColumnNames="id"
-                             nullable="false"/>
+                             nullable="true"/>
             </column>
             <column name="avatar_id" type="bigint">
                 <constraints foreignKeyName="fk_prf_profile_avatar_id" referencedTableName="prf_avatars" referencedTableSchemaName="prf" referencedColumnNames="id"
-                             nullable="false"/>
+                             nullable="true"/>
             </column>
             <column name="current_employer_id" type="bigint">
                 <constraints foreignKeyName="fk_prf_profile_employer_id" referencedTableName="prf_employers" referencedTableSchemaName="prf" referencedColumnNames="id"
-                             nullable="false"/>
+                             nullable="true"/>
             </column>
             <column name="personal_information" type="varchar(255)">
-                <constraints nullable="false"/>
+                <constraints nullable="true"/>
             </column>
         </createTable>
     </changeSet>
@@ -68,13 +68,13 @@
     <changeSet author="Bofh82" id="1.00.01-prf_profile-0003">
         <preConditions onFail="MARK_RAN">
             <and>
-                <tableExists tableName="prf_profile" schemaName="prf"/>
+                <tableExists tableName="prf_profile"/>
                 <not>
-                    <indexExists indexName="prf_profile_index_0" schemaName="prf"/>
+                    <indexExists indexName="prf_profile_index_0"/>
                 </not>
             </and>
         </preConditions>
-        <createIndex indexName="prf_profile_index_0" tableName="prf_profile" schemaName="prf" clustered="true">
+        <createIndex indexName="prf_profile_index_0" tableName="prf_profile"  clustered="true">
             <column name="id"/>
         </createIndex>
     </changeSet>
