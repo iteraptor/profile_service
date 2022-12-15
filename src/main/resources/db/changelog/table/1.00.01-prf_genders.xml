@@ -39,7 +39,7 @@
                 </not>
             </and>
         </preConditions>
-        <createIndex indexName="prf_genders_index_0" tableName="prf_genders"  clustered="true">
+        <createIndex indexName="prf_genders_index_0" tableName="prf_genders" clustered="true">
             <column name="id"/>
         </createIndex>
     </changeSet>

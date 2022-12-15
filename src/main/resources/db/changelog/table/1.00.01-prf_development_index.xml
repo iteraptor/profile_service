@@ -46,7 +46,7 @@
                 </not>
             </and>
         </preConditions>
-        <createIndex indexName="prf_development_index_index_0" tableName="prf_development_index"  clustered="true">
+        <createIndex indexName="prf_development_index_index_0" tableName="prf_development_index" clustered="true">
             <column name="id"/>
             <column name="profile_id"/>
             <column name="external_id"/>

@@ -55,16 +55,16 @@
                 </not>
             </and>
         </preConditions>
-        <createIndex indexName="prf_contact_information_index_0" tableName="prf_contact_information"  clustered="true">
+        <createIndex indexName="prf_contact_information_index_0" tableName="prf_contact_information" clustered="true">
             <column name="id"/>
             <column name="profile_id"/>
         </createIndex>
-        <createIndex indexName="prf_contact_information_index_1" tableName="prf_contact_information"  clustered="true" unique="true">
+        <createIndex indexName="prf_contact_information_index_1" tableName="prf_contact_information" clustered="true" unique="true">
             <column name="profile_id"/>
             <column name="contact_type_id"/>
             <column name="primary"/>
         </createIndex>
-        <createIndex indexName="prf_contact_information_index_2" tableName="prf_contact_information"  clustered="true" unique="true">
+        <createIndex indexName="prf_contact_information_index_2" tableName="prf_contact_information" clustered="true" unique="true">
             <column name="profile_id"/>
             <column name="contact_type_id"/>
             <column name="for_auth"/>

@@ -43,7 +43,7 @@
                 </not>
             </and>
         </preConditions>
-        <createIndex indexName="prf_cities_index_0" tableName="prf_cities"  clustered="true">
+        <createIndex indexName="prf_cities_index_0" tableName="prf_cities" clustered="true">
             <column name="id"/>
             <column name="country_id"/>
         </createIndex>

@@ -43,7 +43,7 @@
                 </not>
             </and>
         </preConditions>
-        <createIndex indexName="prf_personal_settings_index_0" tableName="prf_personal_settings"  clustered="true">
+        <createIndex indexName="prf_personal_settings_index_0" tableName="prf_personal_settings" clustered="true">
             <column name="id"/>
             <column name="profile_id"/>
             <column name="external_id"/>
