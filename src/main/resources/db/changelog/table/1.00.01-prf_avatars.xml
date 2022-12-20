@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+    <property dbms="postgresql,mssql,oracle" value="false" name="autoIncrement"/>
+    <property dbms="h2" value="true" name="autoIncrement"/>
+
+    <changeSet id="1.00.01-prf_avatars-0001" author="Bofh82" runInTransaction="false">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <sequenceExists sequenceName="avatar_id_seq"/>
+            </not>
+        </preConditions>
+        <createSequence sequenceName="avatar_id_seq"  startValue="1" incrementBy="1"/>
+    </changeSet>
+
+    <changeSet id="1.00.01-prf_avatars-0002" author="Bofh82" failOnError="true" >
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="prf_avatars"/>
+            </not>
+        </preConditions>
+        <createTable tableName="prf_avatars" >
+            <column name="id" type="bigint" defaultValueSequenceNext="avatar_id_seq">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="link" type="varchar(255)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="data" type="varchar(255)">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="Bofh82" id="1.00.01-prf_avatars-0003">
+        <preConditions onFail="MARK_RAN">
+            <and>
+                <tableExists tableName="prf_avatars"/>
+                <not>
+                    <indexExists indexName="prf_avatars_index_0"/>
+                </not>
+            </and>
+        </preConditions>
+        <createIndex indexName="prf_avatars_index_0" tableName="prf_avatars" clustered="true">
+            <column name="id"/>
+        </createIndex>
+    </changeSet>
+</databaseChangeLog>
