@@ -24,6 +24,6 @@ public class Avatar {
     private String link;
 
     @Column(name = "data")
-    private String data; //??тип??
+    private String data; //TODO разобраться какой тип использовать
 
 }
