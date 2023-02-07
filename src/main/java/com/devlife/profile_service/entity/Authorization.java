@@ -6,7 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.time.LocalDate;
+import java.time.OffsetDateTime;
 
 @Entity
 @Table(name = "prf_authorizations")
@@ -21,12 +21,11 @@ public class Authorization {
     @SequenceGenerator(name = "auth_id_seq", sequenceName = "auth_id_seq", allocationSize = 1)
     private Long id;
 
-    @ManyToOne(targetEntity = Authorization.class)
-    @JoinColumn(name = "auth_user_id")
-    private Authorization AuthUser;
+    @Column(name = "auth_user_id")
+    private Long authUserId;
 
     @Column(name = "date_of_registration", columnDefinition = "DATE")
-    private LocalDate DateOfRegistration;
+    private OffsetDateTime dateOfRegistration;
 
     @ManyToOne(targetEntity = Profile.class)
     @JoinColumn(name = "profile_id")

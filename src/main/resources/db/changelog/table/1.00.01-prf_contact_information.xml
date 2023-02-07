@@ -35,7 +35,7 @@
             <column name="value" type="varchar(50)">
                 <constraints nullable="false"/>
             </column>
-            <column name="primary" type="boolean">
+            <column name="primary_info" type="boolean">
                 <constraints nullable="false"/>
             </column>
             <column name="for_auth" type="boolean">
@@ -55,19 +55,38 @@
                 </not>
             </and>
         </preConditions>
-        <createIndex indexName="prf_contact_information_index_0" tableName="prf_contact_information" clustered="true">
-            <column name="id"/>
-            <column name="profile_id"/>
-        </createIndex>
-        <createIndex indexName="prf_contact_information_index_1" tableName="prf_contact_information" clustered="true" unique="true">
+        <createIndex indexName="prf_contact_information_index_1" tableName="prf_contact_information" unique="true">
             <column name="profile_id"/>
             <column name="contact_type_id"/>
-            <column name="primary"/>
+            <column name="primary_info"/>
         </createIndex>
-        <createIndex indexName="prf_contact_information_index_2" tableName="prf_contact_information" clustered="true" unique="true">
+        <createIndex indexName="prf_contact_information_index_2" tableName="prf_contact_information" unique="true">
             <column name="profile_id"/>
             <column name="contact_type_id"/>
             <column name="for_auth"/>
         </createIndex>
     </changeSet>
+
+    <changeSet id="1.00.01-prf_contact_information-0004" author="leo" runInTransaction="false">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <columnExists tableName="prf_contact_information" columnName="contact_type"/>
+            </not>
+        </preConditions>
+        <comment>rename column contact_type_id to contact_type</comment>
+        <dropForeignKeyConstraint baseTableName="prf_contact_information" constraintName="fk_contact_information_contact_type_id"/>
+        <renameColumn tableName="prf_contact_information" oldColumnName="contact_type_id" newColumnName="contact_type" remarks="1 - email, 2 - phone number, 3 - telegram, 4 - skype"/>
+    </changeSet>
+
+    <changeSet id="1.00.01-prf_contact_information-0005" author="leo" runInTransaction="false">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="prf_contact_types"/>
+        </preConditions>
+
+        <comment>drop table prf_contact_types and her sequence</comment>
+
+        <dropTable tableName="prf_contact_types"/>
+        <dropSequence sequenceName="contactType_id_seq"/>
+    </changeSet>
+
 </databaseChangeLog>

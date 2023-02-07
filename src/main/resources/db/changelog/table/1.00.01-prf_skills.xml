@@ -37,19 +37,4 @@
         </createTable>
     </changeSet>
 
-    <changeSet author="Bofh82" id="1.00.01-prf_skills-0003">
-        <preConditions onFail="MARK_RAN">
-            <and>
-                <tableExists tableName="prf_skills"/>
-                <not>
-                    <indexExists indexName="prf_skills_index_0"/>
-                </not>
-            </and>
-        </preConditions>
-        <createIndex indexName="prf_skills_index_0" tableName="prf_skills" clustered="true">
-            <column name="id"/>
-            <column name="profile_id"/>
-            <column name="external_id"/>
-        </createIndex>
-    </changeSet>
 </databaseChangeLog>
