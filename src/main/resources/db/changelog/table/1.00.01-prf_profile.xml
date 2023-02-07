@@ -74,4 +74,14 @@
 
         <renameColumn tableName="prf_profile" oldColumnName="nick_name" newColumnName="nickname"/>
     </changeSet>
+
+    <changeSet id="1.00.01-prf_profile-0004" author="leo" runInTransaction="false">
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="prf_profile" columnName="nickname"/>
+        </preConditions>
+
+        <comment>Modify type of column nick_name to varchar(36)</comment>
+
+        <modifyDataType tableName="prf_profile" columnName="nickname" newDataType="varchar(36)"/>
+    </changeSet>
 </databaseChangeLog>

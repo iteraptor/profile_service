@@ -65,13 +65,14 @@ public class ProfileService {
                 .authUserId(initProfileReq.getExternalId())
                 .build());
 
-        contactInformationRepository.save(ContactInformation.builder()
-                .profile(profileSaved)
-                .contactType(ContactType.getByValue(initProfileReq.getContactType()))
-                .primaryInfo(true)
-                .forAuth(true)
-                .value(initProfileReq.getContactValue())
-                .build());
+        contactInformationRepository.saveAll(initProfileReq.getContactInfoList().stream()
+                .map(i -> ContactInformation.builder()
+                        .profile(profileSaved)
+                        .contactType(ContactType.getByValue(i.getContactType()))
+                        .primaryInfo(true)
+                        .forAuth(true)
+                        .value(i.getContactValue())
+                        .build()).collect(Collectors.toSet()));
         return mapper.convertToDto(profileSaved);
     }
 

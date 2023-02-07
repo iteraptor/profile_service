@@ -1,12 +1,11 @@
 package com.devlife.profile_service.dto.apiRequestDto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Data
 @Builder
@@ -20,8 +19,13 @@ public class InitProfileReq {
     private String middleName;
     @NotBlank(message = "must be fill")
     private String nickname;
-    @NotNull(message = "must not be null")
-    private Integer contactType;
-    @NotBlank(message = "must be fill")
-    private String contactValue;
+    @NotEmpty
+    private List<ContactInfo> contactInfoList;
+
+    @Data
+    public static class ContactInfo {
+        private Integer contactType;
+        private String contactValue;
+    }
+
 }
