@@ -13,15 +13,15 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 @NoArgsConstructor
 public class InitProfileReq {
-    @NotNull
+    @NotNull(message = "must not be null")
     private Long externalId;
     private String firstName;
     private String lastName;
     private String middleName;
-    @NotBlank
+    @NotBlank(message = "must be fill")
     private String nickname;
-    @NotNull
+    @NotNull(message = "must not be null")
     private Integer contactType;
-    @NotBlank
+    @NotBlank(message = "must be fill")
     private String contactValue;
 }
