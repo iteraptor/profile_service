@@ -23,6 +23,7 @@ public class InitProfileReq {
     private List<ContactInfo> contactInfoList;
 
     @Data
+    @AllArgsConstructor
     public static class ContactInfo {
         private Integer contactType;
         private String contactValue;

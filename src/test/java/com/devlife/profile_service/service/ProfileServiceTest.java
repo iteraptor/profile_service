@@ -23,6 +23,10 @@ import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 
+import java.util.Collections;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -55,25 +59,23 @@ class ProfileServiceTest {
     void profileInit_OK() {
         InitProfileReq initProfileReq = InitProfileReq.builder()
                 .externalId(1L)
-                .contactType(ContactType.EMAIL.getValue())
-                .contactValue("123@test.com")
+                .contactInfoList(Collections.singletonList(
+                        new InitProfileReq.ContactInfo(ContactType.EMAIL.getValue(), "123@test.com"))
+                )
                 .nickname("test")
                 .build();
 
         Profile profileForSave = mapper.convertFromInitProfileReqToEntity(initProfileReq);
-
-        Authorization authorizationForSave = Authorization.builder()
+        
+        Set<ContactInformation> contactInformationForSave = initProfileReq.getContactInfoList().stream()
+                .map(i -> ContactInformation.builder()
                 .profile(Profile.builder().id(1L).build())
-                .authUserId(initProfileReq.getExternalId())
-                .build();
-
-        ContactInformation contactInformationForSave = ContactInformation.builder()
-                .profile(Profile.builder().id(1L).build())
-                .contactType(ContactType.getByValue(initProfileReq.getContactType()))
+                .contactType(ContactType.getByValue(i.getContactType()))
                 .primaryInfo(true)
                 .forAuth(true)
-                .value(initProfileReq.getContactValue())
-                .build();
+                .value(i.getContactValue())
+                .build())
+                .collect(Collectors.toSet());
 
         when(profileRepository.existsByNickname(any())).thenReturn(false);
         when(authorizationRepository.existsByAuthUserId(any())).thenReturn(false);
@@ -89,7 +91,7 @@ class ProfileServiceTest {
 
         verify(profileRepository, times(1)).saveAndFlush(profileForSave);
         verify(authorizationRepository, times(1)).save(any(Authorization.class));
-        verify(contactInformationRepository, times(1)).save(contactInformationForSave);
+        verify(contactInformationRepository, times(1)).saveAll(contactInformationForSave);
     }
 
     @Test
@@ -97,8 +99,6 @@ class ProfileServiceTest {
     void profileInit_EXCEPTION() {
         InitProfileReq initProfileReq = InitProfileReq.builder()
                 .externalId(1L)
-                .contactType(ContactType.EMAIL.getValue())
-                .contactValue("123@test.com")
                 .nickname("test")
                 .build();
 
