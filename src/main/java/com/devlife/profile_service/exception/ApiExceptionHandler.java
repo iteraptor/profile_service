@@ -12,7 +12,6 @@ import java.util.stream.Collectors;
 
 @ControllerAdvice
 public class ApiExceptionHandler {
-
     public static final int FILED_NAME_INDEX = 1;
 
     @ExceptionHandler(value = {RequestApiNotFoundException.class})
