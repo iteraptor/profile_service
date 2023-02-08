@@ -13,8 +13,7 @@ import java.io.Serializable;
 @Builder
 public class ContactInformationDto implements Serializable {
 
-    private ContactTypeDto contactType;
-    private Boolean primary;
+    private Boolean primaryInfo;
     private Boolean forAuth;
     private Long id;
     private ProfileDto profile;

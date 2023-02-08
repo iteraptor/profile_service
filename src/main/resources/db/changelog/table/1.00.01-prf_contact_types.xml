@@ -30,7 +30,7 @@
         </createTable>
     </changeSet>
 
-    <changeSet author="Bofh82" id="1.00.01-prf_contact_types-0003">
+    <changeSet author="Bofh82" id="1.00.01-prf_contact_types-0003" runInTransaction="false">
         <preConditions onFail="MARK_RAN">
             <and>
                 <tableExists tableName="prf_contact_types"/>
@@ -43,4 +43,7 @@
             <column name="id"/>
         </createIndex>
     </changeSet>
+
+<!--    table was remove in 1.00.01-prf_contact_information.xml-->
+
 </databaseChangeLog>

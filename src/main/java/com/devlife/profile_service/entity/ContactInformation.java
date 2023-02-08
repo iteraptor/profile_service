@@ -1,5 +1,7 @@
 package com.devlife.profile_service.entity;
 
+import com.devlife.profile_service.ContactType;
+import com.devlife.profile_service.utils.ContactTypeConverter;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,12 +21,12 @@ public class ContactInformation {
     @SequenceGenerator(name = "contactInformation_id_seq", sequenceName = "contactInformation_id_seq", allocationSize = 1)
     private Long id;
 
-    @ManyToOne(targetEntity = ContactType.class)
-    @JoinColumn(name = "contact_type_id")
+    @JoinColumn(name = "contact_type")
+    @Convert(converter = ContactTypeConverter.class)
     private ContactType contactType;
 
-    @Column(name = "primary")
-    private Boolean primary;
+    @Column(name = "primary_info")
+    private Boolean primaryInfo;
 
     @Column(name = "for_auth")
     private Boolean forAuth;

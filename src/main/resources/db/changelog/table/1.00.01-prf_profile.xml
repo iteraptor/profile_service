@@ -8,10 +8,10 @@
     <changeSet id="1.00.01-prf_profile-0001" author="Bofh82" runInTransaction="false">
         <preConditions onFail="MARK_RAN">
             <not>
-                <sequenceExists sequenceName="skill_id_seq"/>
+                <sequenceExists sequenceName="profile_id_seq"/>
             </not>
         </preConditions>
-        <createSequence sequenceName="skill_id_seq"  startValue="1" incrementBy="1"/>
+        <createSequence sequenceName="profile_id_seq"  startValue="1" incrementBy="1"/>
     </changeSet>
 
     <changeSet id="1.00.01-prf_profile-0002" author="Bofh82" failOnError="true" >
@@ -21,7 +21,7 @@
             </not>
         </preConditions>
         <createTable tableName="prf_profile" >
-            <column name="id" type="bigint" defaultValueSequenceNext="skill_id_seq">
+            <column name="id" type="bigint" defaultValueSequenceNext="profile_id_seq">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="nick_name" type="varchar(30)">
@@ -65,17 +65,23 @@
         </createTable>
     </changeSet>
 
-    <changeSet author="Bofh82" id="1.00.01-prf_profile-0003">
+    <changeSet id="1.00.01-prf_profile-0003" author="leo" runInTransaction="false">
         <preConditions onFail="MARK_RAN">
-            <and>
-                <tableExists tableName="prf_profile"/>
-                <not>
-                    <indexExists indexName="prf_profile_index_0"/>
-                </not>
-            </and>
+            <columnExists tableName="prf_profile" columnName="nick_name"/>
         </preConditions>
-        <createIndex indexName="prf_profile_index_0" tableName="prf_profile" clustered="true">
-            <column name="id"/>
-        </createIndex>
+
+        <comment>Rename column nick_name to nickname</comment>
+
+        <renameColumn tableName="prf_profile" oldColumnName="nick_name" newColumnName="nickname"/>
+    </changeSet>
+
+    <changeSet id="1.00.01-prf_profile-0004" author="leo" runInTransaction="false">
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="prf_profile" columnName="nickname"/>
+        </preConditions>
+
+        <comment>Modify type of column nick_name to varchar(36)</comment>
+
+        <modifyDataType tableName="prf_profile" columnName="nickname" newDataType="varchar(36)"/>
     </changeSet>
 </databaseChangeLog>

@@ -21,12 +21,8 @@ public class Profile {
     @SequenceGenerator(name = "profile_id_seq", sequenceName = "profile_id_seq", allocationSize = 1)
     private Long id;
 
-    @ManyToOne(targetEntity = Authorization.class)
-    @JoinColumn(name = "auth_user_id")
-    private Authorization authUser;
-
-    @Column(name = "nick_name")
-    private String nickName;
+    @Column(name = "nickname")
+    private String nickname;
 
     @Column(name = "first_name")
     private String firstName;
@@ -40,9 +36,9 @@ public class Profile {
     @Column(name = "date_of_birth", columnDefinition = "DATE")
     private LocalDate dateOfBirth;
 
-    @ManyToOne(targetEntity = Gender.class)
+    @OneToOne(targetEntity = Gender.class)
     @JoinColumn(name = "gender_id")
-    private Gender Gender;
+    private Gender gender;
 
     @ManyToOne(targetEntity = Country.class)
     @JoinColumn(name = "country_id")
@@ -54,7 +50,7 @@ public class Profile {
 
     @ManyToOne(targetEntity = Avatar.class)
     @JoinColumn(name = "avatar_id")
-    private Avatar avatar;
+    private Avatar avatar; //TODO предполагаю, что аватаров может быть несколько, тогда нужно переделать
 
     @ManyToOne(targetEntity = Employer.class)
     @JoinColumn(name = "current_employer_id")

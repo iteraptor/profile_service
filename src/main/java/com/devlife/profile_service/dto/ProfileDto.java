@@ -25,7 +25,7 @@ public class ProfileDto implements Serializable {
     private Long id;
     private String lastName;
     private String middleName;
-    private String nickName;
+    private String nickname;
     private String personalInformation;
 
 }
