@@ -4,16 +4,7 @@ spring:
     function:
       definition: projectConsumer
     stream:
-#      kafka:
-#        bindings:
-#          projectConsumer-in-0:
-#            consumer:
-#              configuration:
-#                value.serializer: org.springframework.kafka.support.serializer.JsonSerializer
-#                value.deserializer: org.apache.kafka.common.serialization.BytesDeserializer
       bindings:
         projectConsumer-in-0:
-#          consumer:
-#            useNativeDecoding: true
           destination: ${PROJECT_TOPIC:project-info}
           group: "prf"
