@@ -58,7 +58,5 @@ public class ProjectConsumerService implements ConsumerService<ProjectAsyncModel
 
         ProjectAsyncModel payload = message.getPayload();
         Objects.requireNonNull(payload.getId(), "id is require");
-        Objects.requireNonNull(payload.getName(), "name is require");
-        Objects.requireNonNull(payload.getStartDate(), "start date is require");
     }
 }
