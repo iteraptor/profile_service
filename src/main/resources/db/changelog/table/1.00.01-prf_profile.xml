@@ -40,23 +40,23 @@
                 <constraints nullable="true"/>
             </column>
             <column name="gender_id" type="bigint">
-                <constraints foreignKeyName="fk_prf_profile_gender_id" referencedTableName="prf_genders" referencedTableSchemaName="prf" referencedColumnNames="id"
+                <constraints foreignKeyName="fk_prf_profile_gender_id" referencedTableName="prf_gender" referencedTableSchemaName="prf" referencedColumnNames="id"
                              nullable="true"/>
             </column>
             <column name="country_id" type="bigint">
-                <constraints foreignKeyName="fk_prf_profile_country_id" referencedTableName="prf_countries" referencedTableSchemaName="prf" referencedColumnNames="id"
+                <constraints foreignKeyName="fk_prf_profile_country_id" referencedTableName="prf_country" referencedTableSchemaName="prf" referencedColumnNames="id"
                              nullable="true"/>
             </column>
             <column name="city_id" type="bigint">
-                <constraints foreignKeyName="fk_prf_profile_city_id" referencedTableName="prf_cities" referencedTableSchemaName="prf" referencedColumnNames="id"
+                <constraints foreignKeyName="fk_prf_profile_city_id" referencedTableName="prf_city" referencedTableSchemaName="prf" referencedColumnNames="id"
                              nullable="true"/>
             </column>
             <column name="avatar_id" type="bigint">
-                <constraints foreignKeyName="fk_prf_profile_avatar_id" referencedTableName="prf_avatars" referencedTableSchemaName="prf" referencedColumnNames="id"
+                <constraints foreignKeyName="fk_prf_profile_avatar_id" referencedTableName="prf_avatar" referencedTableSchemaName="prf" referencedColumnNames="id"
                              nullable="true"/>
             </column>
             <column name="current_employer_id" type="bigint">
-                <constraints foreignKeyName="fk_prf_profile_employer_id" referencedTableName="prf_employers" referencedTableSchemaName="prf" referencedColumnNames="id"
+                <constraints foreignKeyName="fk_prf_profile_employer_id" referencedTableName="prf_employer" referencedTableSchemaName="prf" referencedColumnNames="id"
                              nullable="true"/>
             </column>
             <column name="personal_information" type="varchar(255)">

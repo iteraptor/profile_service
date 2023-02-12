@@ -1,4 +1,4 @@
-package com.devlife.profile_service;
+package com.devlife.profile_service.enums;
 
 import com.devlife.profile_service.exception.ContactTypeNotFoundException;
 import lombok.AllArgsConstructor;

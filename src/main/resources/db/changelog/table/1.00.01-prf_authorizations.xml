@@ -5,7 +5,7 @@
     <property dbms="postgresql,mssql,oracle" value="false" name="autoIncrement"/>
     <property dbms="h2" value="true" name="autoIncrement"/>
 
-    <changeSet id="1.00.01-prf_authorizations-0001" author="Bofh82" runInTransaction="false">
+    <changeSet id="1.00.01-prf_authorization-0001" author="Bofh82" runInTransaction="false">
         <preConditions onFail="MARK_RAN">
             <not>
                 <sequenceExists sequenceName="auth_id_seq"/>
@@ -14,13 +14,13 @@
         <createSequence sequenceName="auth_id_seq"  startValue="1" incrementBy="1"/>
     </changeSet>
 
-    <changeSet id="1.00.01-prf_authorizations-0002" author="Bofh82" failOnError="true" >
+    <changeSet id="1.00.01-prf_authorization-0002" author="Bofh82" failOnError="true" >
         <preConditions onFail="MARK_RAN">
             <not>
-                <tableExists tableName="prf_authorizations"/>
+                <tableExists tableName="prf_authorization"/>
             </not>
         </preConditions>
-        <createTable tableName="prf_authorizations" >
+        <createTable tableName="prf_authorization" >
             <column name="id" type="bigint" defaultValueSequenceNext="auth_id_seq">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
@@ -37,13 +37,13 @@
         </createTable>
     </changeSet>
 
-    <changeSet id="1.00.01-prf_authorizations-0003" author="leo" runInTransaction="false">
+    <changeSet id="1.00.01-prf_authorization-0003" author="leo" runInTransaction="false">
         <preConditions onFail="MARK_RAN">
-            <columnExists tableName="prf_authorizations" columnName="date_of_registration"/>
+            <columnExists tableName="prf_authorization" columnName="date_of_registration"/>
         </preConditions>
 
         <comment>Change column date_of_registration to TIMESTAMP</comment>
 
-        <modifyDataType tableName="prf_authorizations" columnName="date_of_registration" newDataType="timestamptz"/>
+        <modifyDataType tableName="prf_authorization" columnName="date_of_registration" newDataType="timestamptz"/>
     </changeSet>
 </databaseChangeLog>

@@ -5,32 +5,31 @@
     <property dbms="postgresql,mssql,oracle" value="false" name="autoIncrement"/>
     <property dbms="h2" value="true" name="autoIncrement"/>
 
-    <changeSet id="1.00.01-prf_avatars-0001" author="Bofh82" runInTransaction="false">
+    <changeSet id="1.00.01-prf_contact_type-0001" author="Bofh82" runInTransaction="false">
         <preConditions onFail="MARK_RAN">
             <not>
-                <sequenceExists sequenceName="avatar_id_seq"/>
+                <sequenceExists sequenceName="contact_type_id_seq"/>
             </not>
         </preConditions>
-        <createSequence sequenceName="avatar_id_seq"  startValue="1" incrementBy="1"/>
+        <createSequence sequenceName="contact_type_id_seq"  startValue="1" incrementBy="1"/>
     </changeSet>
 
-    <changeSet id="1.00.01-prf_avatars-0002" author="Bofh82" failOnError="true" >
+    <changeSet id="1.00.01-prf_contact_type-0002" author="Bofh82" failOnError="true" >
         <preConditions onFail="MARK_RAN">
             <not>
-                <tableExists tableName="prf_avatars"/>
+                <tableExists tableName="prf_contact_type"/>
             </not>
         </preConditions>
-        <createTable tableName="prf_avatars" >
-            <column name="id" type="bigint" defaultValueSequenceNext="avatar_id_seq">
+        <createTable tableName="prf_contact_type" >
+            <column name="id" type="bigint" defaultValueSequenceNext="contact_type_id_seq">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="link" type="varchar(255)">
-                <constraints nullable="true"/>
-            </column>
-            <column name="data" type="varchar(255)">
-                <constraints nullable="true"/>
+            <column name="value" type="varchar(50)">
+                <constraints nullable="false"/>
             </column>
         </createTable>
     </changeSet>
+
+<!--    table was remove in 1.00.01-prf_contact_information.xml-->
 
 </databaseChangeLog>
