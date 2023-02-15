@@ -60,12 +60,6 @@ public class Profile {
     @Column(name = "personal_information")
     private String personalInformation;
 
-    @ManyToMany(targetEntity = Project.class)
-    @JoinTable(
-            name = "prf_project-profile",
-            joinColumns = {@JoinColumn(name = "profile_id")},
-            inverseJoinColumns = {@JoinColumn(name = "project_id")}
-    )
+    @ManyToMany(mappedBy = "profiles", targetEntity = Project.class)
     private Set<Project> projects;
-
 }

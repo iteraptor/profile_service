@@ -1,6 +1,7 @@
 package com.devlife.profile_service.entity;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -8,7 +9,8 @@ import java.util.Set;
 
 @Entity
 @Table(name = "prf_project")
-@Data
+@Getter
+@Setter
 public class Project {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "project_id_seq")
@@ -34,6 +36,13 @@ public class Project {
     @JoinColumn(name = "employer_id")
     private Employer employer;
 
-    @ManyToMany(mappedBy = "projects", targetEntity = Profile.class)
+
+
+    @ManyToMany(targetEntity = Project.class)
+    @JoinTable(
+            name = "prf_project_profile",
+            joinColumns = {@JoinColumn(name = "project_id")},
+            inverseJoinColumns = {@JoinColumn(name = "profile_id")}
+    )
     private Set<Profile> profiles;
 }

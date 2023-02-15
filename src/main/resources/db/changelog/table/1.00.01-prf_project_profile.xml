@@ -5,13 +5,13 @@
     <property dbms="postgresql,mssql,oracle" value="false" name="autoIncrement"/>
     <property dbms="h2" value="true" name="autoIncrement"/>
 
-    <changeSet id="1.00.01-prf_project-profile-0001" author="leo" failOnError="true">
+    <changeSet id="1.00.01-prf_project_profile-0001" author="leo" failOnError="true">
         <preConditions onFail="MARK_RAN">
             <not>
-                <tableExists tableName="prf_project-profile"/>
+                <tableExists tableName="prf_project_profile"/>
             </not>
         </preConditions>
-        <createTable tableName="prf_project-profile">
+        <createTable tableName="prf_project_profile">
             <column name="project_id" type="bigint" remarks="project id">
                 <constraints foreignKeyName="fk_project_id" referencedTableName="prf_project"
                              referencedTableSchemaName="prf" referencedColumnNames="id"
@@ -25,16 +25,16 @@
         </createTable>
     </changeSet>
 
-    <changeSet id="1.00.01-prf_project-profile-0002" author="leo" runInTransaction="false">
+    <changeSet id="1.00.01-prf_project_profile-0002" author="leo" runInTransaction="false">
         <preConditions onFail="MARK_RAN">
             <and>
-                <tableExists tableName="prf_project-profile"/>
+                <tableExists tableName="prf_project_profile"/>
                 <not>
-                    <indexExists indexName="prf_project-profile_index_0"/>
+                    <indexExists indexName="prf_project_profile_index_0"/>
                 </not>
             </and>
         </preConditions>
-        <createIndex indexName="prf_project-profile_index_0" tableName="prf_project-profile" unique="true">
+        <createIndex indexName="prf_project_profile_index_0" tableName="prf_project_profile" unique="true">
             <column name="profile_id"/>
             <column name="project_id"/>
         </createIndex>

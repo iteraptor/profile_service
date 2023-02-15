@@ -4,6 +4,11 @@ spring:
     function:
       definition: projectConsumer
     stream:
+      kafka:
+        bindings:
+          projectConsumer-in-0:
+            consumer:
+              autoCommitOffset: true
       bindings:
         projectConsumer-in-0:
           destination: ${PROJECT_TOPIC:project-info}
