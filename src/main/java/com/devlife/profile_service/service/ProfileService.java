@@ -1,6 +1,6 @@
 package com.devlife.profile_service.service;
 
-import com.devlife.profile_service.ContactType;
+import com.devlife.profile_service.enums.ContactType;
 import com.devlife.profile_service.dto.ProfileDto;
 import com.devlife.profile_service.dto.apiRequestDto.InitProfileReq;
 import com.devlife.profile_service.entity.Authorization;

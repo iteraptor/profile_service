@@ -1,0 +1,18 @@
+# bindings property file
+spring:
+  cloud:
+    function:
+      definition: projectConsumer
+    stream:
+      kafka:
+        bindings:
+          projectConsumer-in-0:
+            consumer:
+              enableDlq: ${TOPIC_DLQ_ENABLE:true}
+              dlqName: ${PROJECT_TOPIC:project-info}-${PF_GROUP_ID:prf}-dlq
+              autoCommitOnError: true
+              autoCommitOffset: true
+      bindings:
+        projectConsumer-in-0:
+          destination: ${PROJECT_TOPIC:project-info}
+          group: ${PF_GROUP_ID:prf}

@@ -20,5 +20,4 @@ public class MainConfig {
                 .setFieldAccessLevel(PRIVATE);
         return mapper;
     }
-
 }

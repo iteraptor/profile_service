@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Set;
 
 @Entity
 @Table(name = "prf_profile")
@@ -59,4 +60,6 @@ public class Profile {
     @Column(name = "personal_information")
     private String personalInformation;
 
+    @ManyToMany(mappedBy = "profiles", targetEntity = Project.class)
+    private Set<Project> projects;
 }

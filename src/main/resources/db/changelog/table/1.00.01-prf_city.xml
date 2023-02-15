@@ -5,7 +5,7 @@
     <property dbms="postgresql,mssql,oracle" value="false" name="autoIncrement"/>
     <property dbms="h2" value="true" name="autoIncrement"/>
 
-    <changeSet id="1.00.01-prf_cities-0001" author="Bofh82" runInTransaction="false">
+    <changeSet id="1.00.01-prf_city-0001" author="Bofh82" runInTransaction="false">
         <preConditions onFail="MARK_RAN">
             <not>
                 <sequenceExists sequenceName="city_id_seq"/>
@@ -14,13 +14,13 @@
         <createSequence sequenceName="city_id_seq"  startValue="1" incrementBy="1"/>
     </changeSet>
 
-    <changeSet id="1.00.01-prf_cities-0002" author="Bofh82" failOnError="true" >
+    <changeSet id="1.00.01-prf_city-0002" author="Bofh82" failOnError="true" >
         <preConditions onFail="MARK_RAN">
             <not>
-                <tableExists tableName="prf_cities"/>
+                <tableExists tableName="prf_city"/>
             </not>
         </preConditions>
-        <createTable tableName="prf_cities" >
+        <createTable tableName="prf_city" >
             <column name="id" type="bigint" defaultValueSequenceNext="city_id_seq">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
@@ -28,7 +28,7 @@
                 <constraints nullable="false"/>
             </column>
             <column name="country_id" type="bigint">
-                <constraints foreignKeyName="fk_city_country_id" referencedTableName="prf_countries" referencedTableSchemaName="prf" referencedColumnNames="id"
+                <constraints foreignKeyName="fk_city_country_id" referencedTableName="prf_country" referencedTableSchemaName="prf" referencedColumnNames="id"
                              nullable="false"/>
             </column>
         </createTable>

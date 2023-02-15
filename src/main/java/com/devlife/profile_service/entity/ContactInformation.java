@@ -1,6 +1,6 @@
 package com.devlife.profile_service.entity;
 
-import com.devlife.profile_service.ContactType;
+import com.devlife.profile_service.enums.ContactType;
 import com.devlife.profile_service.utils.ContactTypeConverter;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

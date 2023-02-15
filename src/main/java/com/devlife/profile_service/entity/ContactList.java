@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "prf_contacts_list")
+@Table(name = "prf_contact_list")
 @Data
 @AllArgsConstructor
 @Builder

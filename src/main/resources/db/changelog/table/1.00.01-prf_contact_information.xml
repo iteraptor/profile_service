@@ -29,7 +29,7 @@
                              nullable="false"/>
             </column>
             <column name="contact_type_id" type="bigint">
-                <constraints foreignKeyName="fk_contact_information_contact_type_id" referencedTableName="prf_contact_types" referencedTableSchemaName="prf" referencedColumnNames="id"
+                <constraints foreignKeyName="fk_contact_information_contact_type_id" referencedTableName="prf_contact_type" referencedTableSchemaName="prf" referencedColumnNames="id"
                              nullable="false"/>
             </column>
             <column name="value" type="varchar(50)">

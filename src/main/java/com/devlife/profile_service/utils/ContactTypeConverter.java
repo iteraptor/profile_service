@@ -1,6 +1,6 @@
 package com.devlife.profile_service.utils;
 
-import com.devlife.profile_service.ContactType;
+import com.devlife.profile_service.enums.ContactType;
 
 import javax.persistence.AttributeConverter;
 

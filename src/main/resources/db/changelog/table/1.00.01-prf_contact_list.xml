@@ -5,32 +5,36 @@
     <property dbms="postgresql,mssql,oracle" value="false" name="autoIncrement"/>
     <property dbms="h2" value="true" name="autoIncrement"/>
 
-    <changeSet id="1.00.01-prf_personal_setting-0001" author="Bofh82" runInTransaction="false">
+    <changeSet id="1.00.01-prf_contact_list-0001" author="Bofh82" runInTransaction="false">
         <preConditions onFail="MARK_RAN">
             <not>
-                <sequenceExists sequenceName="personalSetting_id_seq"/>
+                <sequenceExists sequenceName="contactsList_id_seq"/>
             </not>
         </preConditions>
-        <createSequence sequenceName="personalSetting_id_seq"  startValue="1" incrementBy="1"/>
+        <createSequence sequenceName="contactsList_id_seq"  startValue="1" incrementBy="1"/>
     </changeSet>
 
-    <changeSet id="1.00.01-prf_personal_setting-0002" author="Bofh82" failOnError="true" >
+    <changeSet id="1.00.01-prf_contact_list-0002" author="Bofh82" failOnError="true" >
         <preConditions onFail="MARK_RAN">
             <not>
-                <tableExists tableName="prf_personal_setting"/>
+                <tableExists tableName="prf_contact_list"/>
             </not>
         </preConditions>
-        <createTable tableName="prf_personal_setting" >
-            <column name="id" type="bigint" defaultValueSequenceNext="personalSetting_id_seq">
+        <createTable tableName="prf_contact_list" >
+            <column name="id" type="bigint" defaultValueSequenceNext="contactsList_id_seq">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="profile_id" type="bigint">
-                <constraints foreignKeyName="fk_prf_personal_setting_profile_id" referencedTableName="prf_profile" referencedTableSchemaName="prf" referencedColumnNames="id"
+                <constraints foreignKeyName="fk_contact_list_profile_id" referencedTableName="prf_profile" referencedTableSchemaName="prf" referencedColumnNames="id"
                              nullable="false"/>
             </column>
-            <column name="external_id" type="bigint">
+            <column name="user_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="nick_name" type="varchar(30)">
                 <constraints nullable="false"/>
             </column>
         </createTable>
     </changeSet>
+
 </databaseChangeLog>

@@ -5,44 +5,36 @@
     <property dbms="postgresql,mssql,oracle" value="false" name="autoIncrement"/>
     <property dbms="h2" value="true" name="autoIncrement"/>
 
-    <changeSet id="1.00.01-prf_educations-0001" author="Bofh82" runInTransaction="false">
+    <changeSet id="1.00.01-prf_skill-0001" author="Bofh82" runInTransaction="false">
         <preConditions onFail="MARK_RAN">
             <not>
-                <sequenceExists sequenceName="education_id_seq"/>
+                <sequenceExists sequenceName="skill_id_seq"/>
             </not>
         </preConditions>
-        <createSequence sequenceName="education_id_seq"  startValue="1" incrementBy="1"/>
+        <createSequence sequenceName="skill_id_seq" startValue="1" incrementBy="1"/>
     </changeSet>
 
-    <changeSet id="1.00.01-prf_educations-0002" author="Bofh82" failOnError="true" >
+    <changeSet id="1.00.01-prf_skill_settings-0002" author="Bofh82" failOnError="true" >
         <preConditions onFail="MARK_RAN">
             <not>
-                <tableExists tableName="prf_educations"/>
+                <tableExists tableName="prf_skill"/>
             </not>
         </preConditions>
-        <createTable tableName="prf_educations" >
-            <column name="id" type="bigint" defaultValueSequenceNext="education_id_seq">
+        <createTable tableName="prf_skill">
+            <column name="id" type="bigint" defaultValueSequenceNext="skill_id_seq">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="profile_id" type="bigint">
-                <constraints foreignKeyName="fk_education_profile_id" referencedTableName="prf_profile" referencedTableSchemaName="prf" referencedColumnNames="id"
+                <constraints foreignKeyName="fk_prf_skill_profile_id" referencedTableName="prf_profile" referencedTableSchemaName="prf" referencedColumnNames="id"
                              nullable="false"/>
             </column>
             <column name="external_id" type="bigint">
                 <constraints nullable="false"/>
             </column>
-            <column name="description" type="varchar(255)">
-                <constraints nullable="true"/>
-            </column>
-            <column name="educational_institution" type="varchar(150)">
+            <column name="name" type="varchar(30)">
                 <constraints nullable="false"/>
-            </column>
-            <column name="start_date" type="date">
-                <constraints nullable="false"/>
-            </column>
-            <column name="end_date" type="date">
-                <constraints nullable="true"/>
             </column>
         </createTable>
     </changeSet>
+
 </databaseChangeLog>

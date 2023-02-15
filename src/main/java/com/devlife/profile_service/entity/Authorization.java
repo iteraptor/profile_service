@@ -9,7 +9,7 @@ import javax.persistence.*;
 import java.time.OffsetDateTime;
 
 @Entity
-@Table(name = "prf_authorizations")
+@Table(name = "prf_authorization")
 @Data
 @AllArgsConstructor
 @Builder
