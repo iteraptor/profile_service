@@ -7,35 +7,55 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("api/v1/profile")
+@Validated
 public class ProfileController {
 
     private final ProfileService service;
 
     @PutMapping
-    Long addProfile(@RequestBody ProfileDto profileDto) {
-        return service.addProfile(profileDto);
+    @Operation(summary = "Add or update profile", tags = {"profile"})
+    ResponseEntity<ProfileDto> addProfile(@RequestBody ProfileDto profileDto) {
+        return ResponseEntity.ok(service.addProfile(profileDto));
     }
 
     @GetMapping("/{id}")
-    ProfileDto getProfile(@PathVariable("id") Long id) {
-        return (service.getProfile(id));
+    @Operation(summary = "Get profile by Id", tags = {"profile"})
+    ResponseEntity<ProfileDto> getProfile(
+            @Parameter(name = "id", description = "Project ID", required = true)
+            @PathVariable("id") @NotNull(message = "ID must be!") Long id) {
+        return ResponseEntity.ok(service.getProfile(id));
     }
 
+    @GetMapping("/userid/{id}")
+    @Operation(summary = "Get profile by userId", tags = {"profile"})
+    ResponseEntity<ProfileDto> getProfileByUserId(
+            @Parameter(name = "user id", description = "User ID from prf_user table", required = true)
+            @PathVariable("id") @NotNull(message = "ID must be!") Long id) {
+        return ResponseEntity.ok(service.getProfileByUserId(id));
+    }
     @GetMapping
-    List<ProfileDto> getAllProfiles() {
-        return service.getAllProfiles();
+    @Operation(summary = "Get list of profiles", tags = {"profile"})
+    ResponseEntity<List<ProfileDto>> getAllProfiles() {
+        return ResponseEntity.ok(service.getAllProfiles());
     }
 
+    @PreAuthorize("hasAuthority('ROOT')")
     @DeleteMapping("/{id}")
-    Boolean deleteProfileById(@PathVariable("id") Long id) {
+    @Operation(summary = "Delete profile by id", tags = {"profile"})
+    Boolean deleteProfileById(
+            @Parameter(name = "id", description = "Profile ID", required = true)
+            @PathVariable("id") @NotNull(message = "ID must be!") Long id) {
         return service.deleteProfileById(id);
     }
 
