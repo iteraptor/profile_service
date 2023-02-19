@@ -8,17 +8,22 @@ import com.devlife.profile_service.entity.ContactInformation;
 import com.devlife.profile_service.entity.Profile;
 import com.devlife.profile_service.exception.ExternalUserIdAlreadyExistsException;
 import com.devlife.profile_service.exception.NicknameAlreadyExistsException;
+import com.devlife.profile_service.exception.ProjectNotFoundException;
+import com.devlife.profile_service.exception.UserNotFoundException;
 import com.devlife.profile_service.mapper.ProfileMapper;
 import com.devlife.profile_service.repository.AuthorizationRepository;
 import com.devlife.profile_service.repository.ContactInformationRepository;
 import com.devlife.profile_service.repository.ProfileRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.OffsetDateTime;
 import java.time.ZoneId;
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -30,16 +35,22 @@ public class ProfileService {
     private final ContactInformationRepository contactInformationRepository;
     private final ProfileMapper mapper;
 
-    public Long addProfile(ProfileDto profile) {
+    public ProfileDto addProfile(ProfileDto profile) {
         Profile saveProfile = profileRepository.save(mapper.convertToEntity(profile));
-        if (saveProfile != null) {
-            return saveProfile.getId();
-        }
-        return null;
+        return mapper.convertToDto(saveProfile);
     }
 
     public ProfileDto getProfile(Long id) {
-        Profile profile = profileRepository.getById(id);
+        Optional<Profile> profileOpt = profileRepository.findById(id);
+        Profile profile = profileOpt.orElseThrow(() -> new ProjectNotFoundException("id : " + id));
+        return mapper.convertToDto(profile);
+    }
+
+    public ProfileDto getProfileByUserId(Long userId) {
+        if (!authorizationRepository.existsById(userId)) {
+            throw new UserNotFoundException(Objects.toString(userId));
+        }
+        Profile profile = profileRepository.getProfileByUserId(userId);
         return mapper.convertToDto(profile);
     }
 

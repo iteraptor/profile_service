@@ -44,13 +44,13 @@ public class ProjectConsumerService implements ConsumerService<ProjectAsyncModel
         }
         if (event == EventType.DELETE) {
             if (!projectExists) {
-                throw new ProjectNotFoundException(externalId);
+                throw new ProjectNotFoundException(Objects.toString(externalId));
             }
             projectRepository.deleteByExternalId(externalId);
         }
         if (event == EventType.UPDATE) {
             if (!projectExists) {
-                throw new ProjectNotFoundException(externalId);
+                throw new ProjectNotFoundException(Objects.toString(externalId));
             }
             Project existsProject = projectRepository.findByExternalId(externalId).map(p -> {
                 if (!p.getName().equals(project.getName())) {
