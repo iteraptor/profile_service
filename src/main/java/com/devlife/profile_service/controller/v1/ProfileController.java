@@ -2,6 +2,7 @@ package com.devlife.profile_service.controller.v1;
 
 import com.devlife.profile_service.dto.ProfileDto;
 import com.devlife.profile_service.dto.apiRequestDto.InitProfileReq;
+import com.devlife.profile_service.dto.apiRequestDto.UpdateProfileByProfileIdReq;
 import com.devlife.profile_service.service.ProfileService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -37,6 +38,19 @@ public class ProfileController {
         return ResponseEntity.ok(service.getProfile(id));
     }
 
+    @PutMapping("/{id}")
+    @Operation(summary = "Update profile by profileId", tags = {"profile"})
+    ResponseEntity<ProfileDto> updateProfile(
+            @Parameter(description = "profile id", required = true, name = "profile id")
+            @PathVariable("id") @NotNull(message = "ID must be!") Long id,
+            @Parameter(description = "update data", required = true, name = "updateProfileByProfileIdReq")
+            @Valid @RequestBody
+            @io.swagger.v3.oas.annotations.parameters.RequestBody
+            UpdateProfileByProfileIdReq updateProfileByProfileIdReq
+    ) {
+        return ResponseEntity.ok(service.updateProfileByProfileId(id, updateProfileByProfileIdReq));
+    }
+
     @GetMapping("/userid/{id}")
     @Operation(summary = "Get profile by userId", tags = {"profile"})
     ResponseEntity<ProfileDto> getProfileByUserId(
@@ -44,6 +58,7 @@ public class ProfileController {
             @PathVariable("id") @NotNull(message = "ID must be!") Long id) {
         return ResponseEntity.ok(service.getProfileByUserId(id));
     }
+
     @GetMapping
     @Operation(summary = "Get list of profiles", tags = {"profile"})
     ResponseEntity<List<ProfileDto>> getAllProfiles() {
