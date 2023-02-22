@@ -33,8 +33,6 @@ public class ProfileService {
     private final GenderRepository genderRepository;
     private final AvatarRepository avatarRepository;
 
-//    private final ProfilePublisher profilePublisher; TODO Для Kafka
-
     public ProfileDto addProfile(ProfileDto profile) {
         Profile saveProfile = profileRepository.save(profileMapper.convertToEntity(profile));
         return profileMapper.convertToDto(saveProfile);
@@ -92,8 +90,6 @@ public class ProfileService {
         if (profileUpdate.getNickname() == null) profileUpdate.setNickname(profile.getNickname());
 
         ProfileDto profileDto = profileMapper.convertToDto(profileRepository.save(profileUpdate));
-
-//        profilePublisher.sendMessage(profileDto, EventType.UPDATE); TODO для Kafka
 
         return profileDto;
     }

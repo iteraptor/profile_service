@@ -44,7 +44,9 @@ public class ProfileController {
             @Parameter(description = "profile id", required = true, name = "profile id")
             @PathVariable("id") @NotNull(message = "ID must be!") Long id,
             @Parameter(description = "update data", required = true, name = "updateProfileByProfileIdReq")
-            @RequestBody UpdateProfileByProfileIdReq updateProfileByProfileIdReq
+            @Valid @RequestBody
+            @io.swagger.v3.oas.annotations.parameters.RequestBody
+            UpdateProfileByProfileIdReq updateProfileByProfileIdReq
     ) {
         return ResponseEntity.ok(service.updateProfileByProfileId(id, updateProfileByProfileIdReq));
     }
@@ -56,6 +58,7 @@ public class ProfileController {
             @PathVariable("id") @NotNull(message = "ID must be!") Long id) {
         return ResponseEntity.ok(service.getProfileByUserId(id));
     }
+
     @GetMapping
     @Operation(summary = "Get list of profiles", tags = {"profile"})
     ResponseEntity<List<ProfileDto>> getAllProfiles() {
