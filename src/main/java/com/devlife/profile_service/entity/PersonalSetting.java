@@ -1,18 +1,17 @@
 package com.devlife.profile_service.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "prf_personal_setting")
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @Builder
 @NoArgsConstructor
+@EqualsAndHashCode
 public class PersonalSetting {
 
     @Id
@@ -21,6 +20,7 @@ public class PersonalSetting {
     private Long id;
 
     @ManyToOne(targetEntity = Profile.class)
+    @EqualsAndHashCode.Exclude
     @JoinColumn(name = "profile_id")
     private Profile profile;
 

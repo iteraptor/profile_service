@@ -1,12 +1,15 @@
 package com.devlife.profile_service.service.eventService;
 
 import com.devlife.profile_service.dto.asyncMessageModel.ProjectAsyncModel;
+import com.devlife.profile_service.dto.asyncMessageModel.UserAsyncModel;
+import com.devlife.profile_service.entity.Profile;
 import com.devlife.profile_service.entity.Project;
 import com.devlife.profile_service.enums.EventType;
 import com.devlife.profile_service.exception.BusinessLogicException;
 import com.devlife.profile_service.exception.ProjectAlreadyExistsException;
 import com.devlife.profile_service.exception.ProjectNotFoundException;
 import com.devlife.profile_service.mapper.ProjectMapper;
+import com.devlife.profile_service.repository.ProfileRepository;
 import com.devlife.profile_service.repository.ProjectRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.messaging.Message;
@@ -15,13 +18,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class ProjectConsumerService implements ConsumerService<ProjectAsyncModel> {
-
     public static final String EVENT = "event";
     private final ProjectRepository projectRepository;
+    private final ProfileRepository profileRepository;
     private final ProjectMapper projectMapper;
 
     @Override
@@ -36,18 +41,26 @@ public class ProjectConsumerService implements ConsumerService<ProjectAsyncModel
 
         final Long externalId = project.getExternalId();
         final Boolean projectExists = projectRepository.existsByExternalId(externalId);
-        if (event == EventType.CREATE) {
-            if (projectExists) {
-                throw new ProjectAlreadyExistsException(project.getExternalId());
-            }
-            projectRepository.save(project);
-        }
         if (event == EventType.DELETE) {
             if (!projectExists) {
                 throw new ProjectNotFoundException(Objects.toString(externalId));
             }
             projectRepository.deleteByExternalId(externalId);
         }
+        if (Objects.nonNull(payload.getUserGroup().getUsers())) {
+            Set<Long> externalUserIdSet = payload.getUserGroup().getUsers().stream()
+                    .map(UserAsyncModel::getExternalId).collect(Collectors.toSet());
+            Set<Profile> profiles = profileRepository.getProfilesByUserIdIn(externalUserIdSet);
+            project.setProfiles(profiles);
+        }
+        if (event == EventType.CREATE) {
+            if (projectExists) {
+                throw new ProjectAlreadyExistsException(project.getExternalId());
+            }
+            projectRepository.save(project);
+            return;
+        }
+
         if (event == EventType.UPDATE) {
             if (!projectExists) {
                 throw new ProjectNotFoundException(Objects.toString(externalId));

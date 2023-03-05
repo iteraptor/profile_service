@@ -12,9 +12,9 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class UserGroupAsyncModel implements Serializable {
+public class UserAsyncModel implements Serializable {
     private Long id;
+    private Long externalId;
     private String name;
-    private String description;
-    private Set<UserAsyncModel> users;
+    private Set<UserGroupAsyncModel> userGroups;
 }

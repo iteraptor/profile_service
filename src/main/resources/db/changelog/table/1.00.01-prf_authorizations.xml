@@ -46,4 +46,29 @@
 
         <modifyDataType tableName="prf_authorization" columnName="date_of_registration" newDataType="timestamptz"/>
     </changeSet>
+
+    <changeSet id="1.00.01-prf_authorization-0004" author="leo" runInTransaction="false">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="prf_authorization"/>
+        </preConditions>
+
+        <comment>Change table name prf_authorization to prf_user</comment>
+
+        <renameTable oldTableName="prf_authorization" newTableName="prf_user"/>
+    </changeSet>
+
+    <changeSet id="1.00.01-prf_authorization-0005" author="leo" runInTransaction="false">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <indexExists tableName="prf_authorization" indexName="prf_user_index_0"/>
+            </not>
+        </preConditions>
+
+        <comment>Create uniq index prf_user_index_0 to prf_user by auth_user_id</comment>
+
+        <createIndex tableName="prf_user" indexName="prf_user_index_0" unique="true">
+            <column name="auth_user_id"/>
+        </createIndex>
+    </changeSet>
+
 </databaseChangeLog>

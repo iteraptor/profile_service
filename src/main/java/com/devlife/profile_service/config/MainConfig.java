@@ -17,6 +17,7 @@ public class MainConfig {
                 .setMatchingStrategy(MatchingStrategies.STRICT)
                 .setFieldMatchingEnabled(true)
                 .setSkipNullEnabled(true)
+                .setPreferNestedProperties(false)
                 .setFieldAccessLevel(PRIVATE);
         return mapper;
     }

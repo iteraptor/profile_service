@@ -28,5 +28,4 @@ public class InitProfileReq {
         private Integer contactType;
         private String contactValue;
     }
-
 }

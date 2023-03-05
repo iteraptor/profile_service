@@ -1,16 +1,16 @@
 package com.devlife.profile_service.service;
 
+import com.devlife.profile_service.entity.User;
 import com.devlife.profile_service.enums.ContactType;
 import com.devlife.profile_service.config.MainConfig;
 import com.devlife.profile_service.dto.ProfileDto;
 import com.devlife.profile_service.dto.apiRequestDto.InitProfileReq;
-import com.devlife.profile_service.entity.Authorization;
 import com.devlife.profile_service.entity.ContactInformation;
 import com.devlife.profile_service.entity.Profile;
 import com.devlife.profile_service.exception.ExternalUserIdAlreadyExistsException;
 import com.devlife.profile_service.exception.NicknameAlreadyExistsException;
 import com.devlife.profile_service.mapper.ProfileMapper;
-import com.devlife.profile_service.repository.AuthorizationRepository;
+import com.devlife.profile_service.repository.UserRepository;
 import com.devlife.profile_service.repository.ContactInformationRepository;
 import com.devlife.profile_service.repository.ProfileRepository;
 import org.junit.jupiter.api.AfterEach;
@@ -40,7 +40,7 @@ class ProfileServiceTest {
     @Mock
     ProfileRepository profileRepository;
     @Mock
-    AuthorizationRepository authorizationRepository;
+    UserRepository userRepository;
     @Mock
     ContactInformationRepository contactInformationRepository;
 
@@ -50,7 +50,7 @@ class ProfileServiceTest {
     @AfterEach
     void afterEach(){
         verifyNoMoreInteractions(profileRepository);
-        verifyNoMoreInteractions(authorizationRepository);
+        verifyNoMoreInteractions(userRepository);
         verifyNoMoreInteractions(contactInformationRepository);
     }
 
@@ -78,7 +78,7 @@ class ProfileServiceTest {
                 .collect(Collectors.toSet());
 
         when(profileRepository.existsByNickname(any())).thenReturn(false);
-        when(authorizationRepository.existsByAuthUserId(any())).thenReturn(false);
+        when(userRepository.existsByAuthUserId(any())).thenReturn(false);
 
         when(profileRepository.saveAndFlush(profileForSave)).thenReturn(Profile.builder().id(1L).build());
 
@@ -86,11 +86,11 @@ class ProfileServiceTest {
         assertNotNull(profileDto);
         assertEquals( 1, profileDto.getId());
 
-        verify(authorizationRepository, times(1)).existsByAuthUserId(1L);
+        verify(userRepository, times(1)).existsByAuthUserId(1L);
         verify(profileRepository, times(1)).existsByNickname("test");
 
         verify(profileRepository, times(1)).saveAndFlush(profileForSave);
-        verify(authorizationRepository, times(1)).save(any(Authorization.class));
+        verify(userRepository, times(1)).save(any(User.class));
         verify(contactInformationRepository, times(1)).saveAll(contactInformationForSave);
     }
 
@@ -103,12 +103,12 @@ class ProfileServiceTest {
                 .build();
 
         when(profileRepository.existsByNickname(any())).thenReturn(true);
-        when(authorizationRepository.existsByAuthUserId(any())).thenReturn(false);
+        when(userRepository.existsByAuthUserId(any())).thenReturn(false);
 
         assertThrows(NicknameAlreadyExistsException.class, () -> profileService.profileInit(initProfileReq));
 
         when(profileRepository.existsByNickname(any())).thenReturn(false);
-        when(authorizationRepository.existsByAuthUserId(any())).thenReturn(true);
+        when(userRepository.existsByAuthUserId(any())).thenReturn(true);
 
         assertThrows(ExternalUserIdAlreadyExistsException.class, () -> profileService.profileInit(initProfileReq));
     }

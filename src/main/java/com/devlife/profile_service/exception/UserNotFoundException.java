@@ -2,8 +2,8 @@ package com.devlife.profile_service.exception;
 
 import java.util.Arrays;
 
-public class UserNotFoundException extends IllegalArgumentException{
-    public UserNotFoundException(String... s) {
-        super("User not found \n " + Arrays.toString(s));
+public class UserNotFoundException extends RequestApiNotFoundException{
+    public UserNotFoundException(String field, Object... s) {
+        super("User not found by " + field + "\n " + Arrays.toString(s));
     }
 }

@@ -9,10 +9,21 @@ spring:
           projectConsumer-in-0:
             consumer:
               enableDlq: ${TOPIC_DLQ_ENABLE:true}
-              dlqName: ${PROJECT_TOPIC:project-info}-${PF_GROUP_ID:prf}-dlq
+              dlqName: ${PROJECT_TOPIC:project-event}-${PRF_GROUP_ID:prf}-dlq
+              autoCommitOnError: true
+              autoCommitOffset: true
+          projectUserLinkConsumer-in-0:
+            consumer:
+              enableDlq: ${TOPIC_DLQ_ENABLE:true}
+              dlqName: ${PROJECT_USER_LINK_TOPIC:project-user-link-event}-${PRF_GROUP_ID:prf}-dlq
               autoCommitOnError: true
               autoCommitOffset: true
       bindings:
+        user-out-0:
+          destination: ${USER_TOPIC:user-event}
         projectConsumer-in-0:
-          destination: ${PROJECT_TOPIC:project-info}
-          group: ${PF_GROUP_ID:prf}
+          destination: ${PROJECT_TOPIC:project-event}
+          group: ${PRF_GROUP_ID:prf}
+        projectUserLinkConsumer-in-0:
+          destination: ${PROJECT_USER_LINK_TOPIC:project-user-link-event}
+          group: ${PRF_GROUP_ID:prf}

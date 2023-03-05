@@ -16,13 +16,13 @@ import java.time.LocalDate;
 public class UpdateProfileByProfileIdReq {
 
     @Parameter(description = "user first name", name = "firstName")
-    @Size(max = 255, message = "A first name must not be longer than 255 characters.")
+    @Size(max = 30, message = "A first name must not be longer than 255 characters.")
     private String firstName;
     @Parameter(description = "user middle name", name = "middleName")
-    @Size(max = 255, message = "A middle name must not be longer than 255 characters.")
+    @Size(max = 30, message = "A middle name must not be longer than 255 characters.")
     private String middleName;
     @Parameter(description = "user last name", name = "lastName")
-    @Size(max = 255, message = "A last name must not be longer than 255 characters.")
+    @Size(max = 30, message = "A last name must not be longer than 255 characters.")
     private String lastName;
     @Parameter(description = "user personal information", name = "personalInformation")
     @Size(max = 255, message = "A personal information must not be longer than 255 characters.")

@@ -84,4 +84,14 @@
 
         <modifyDataType tableName="prf_profile" columnName="nickname" newDataType="varchar(36)"/>
     </changeSet>
+
+    <changeSet id="1.00.01-prf_profile-0005" author="leo" runInTransaction="false">
+        <preConditions>
+            <columnExists tableName="prf_profile" columnName="current_employer_id"/>
+        </preConditions>
+
+        <comment>drop column current_employer_id</comment>
+
+        <dropColumn tableName="prf_profile" columnName="current_employer_id"/>
+    </changeSet>
 </databaseChangeLog>

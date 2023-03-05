@@ -69,4 +69,8 @@ public class Profile {
     @ManyToMany(mappedBy = "profiles", targetEntity = Project.class)
     @EqualsAndHashCode.Include
     private Set<Project> projects;
+
+    @OneToOne(targetEntity = User.class, fetch = FetchType.EAGER, mappedBy = "profile")
+    @EqualsAndHashCode.Exclude
+    private User user;
 }

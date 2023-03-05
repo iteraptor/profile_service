@@ -4,8 +4,8 @@ import java.util.Arrays;
 
 public class ProjectNotFoundException extends RequestApiNotFoundException {
 
-    public ProjectNotFoundException(String... s) {
-        super("Project not found \n " + Arrays.toString(s));
+    public ProjectNotFoundException(String field, Object... s) {
+        super("Project not found by " + field + "\n " + Arrays.toString(s));
     }
 
 }
