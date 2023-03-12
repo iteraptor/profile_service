@@ -41,14 +41,12 @@ class ProfileServiceTest {
     ProfileMapper mapper = new ProfileMapper(modelMapper);
     @Spy
     UserMapper userMapper = new UserMapper(modelMapper);
-
     @Mock
     ProfileRepository profileRepository;
     @Mock
     UserRepository userRepository;
     @Mock
     UserPublisher userPublisher;
-
     @InjectMocks
     ProfileService profileService;
 
@@ -56,6 +54,7 @@ class ProfileServiceTest {
     void afterEach(){
         verifyNoMoreInteractions(profileRepository);
         verifyNoMoreInteractions(userRepository);
+        verifyNoMoreInteractions(userPublisher);
     }
 
     @Test
