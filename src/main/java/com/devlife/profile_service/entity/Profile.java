@@ -42,22 +42,22 @@ public class Profile {
     @EqualsAndHashCode.Include
     private LocalDate dateOfBirth;
 
-    @OneToOne(targetEntity = Gender.class)
+    @OneToOne
     @JoinColumn(name = "gender_id")
     @EqualsAndHashCode.Include
     private Gender gender;
 
-    @ManyToOne(targetEntity = Country.class)
+    @ManyToOne
     @JoinColumn(name = "country_id")
     @EqualsAndHashCode.Include
     private Country country;
 
-    @ManyToOne(targetEntity = City.class)
+    @ManyToOne
     @JoinColumn(name = "city_id")
     @EqualsAndHashCode.Include
     private City city;
 
-    @ManyToOne(targetEntity = Avatar.class)
+    @ManyToOne
     @JoinColumn(name = "avatar_id")
     @EqualsAndHashCode.Include
     private Avatar avatar; //TODO предполагаю, что аватаров может быть несколько, тогда нужно переделать
@@ -73,4 +73,9 @@ public class Profile {
     @OneToOne(targetEntity = User.class, fetch = FetchType.EAGER, mappedBy = "profile")
     @EqualsAndHashCode.Exclude
     private User user;
+
+    @OneToMany
+    @JoinColumn(name = "profile_id")
+    @EqualsAndHashCode.Exclude
+    private Set<ContactInformation> contactInformation;
 }

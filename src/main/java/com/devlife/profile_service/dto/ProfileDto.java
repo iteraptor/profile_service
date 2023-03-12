@@ -34,5 +34,6 @@ public class ProfileDto implements Serializable {
     private String nickname;
     private String personalInformation;
     private Set<Project> projects;
+    private Set<ContactInformationDto> contactInformation;
 
 }

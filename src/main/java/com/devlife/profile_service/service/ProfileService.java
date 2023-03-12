@@ -1,6 +1,7 @@
 package com.devlife.profile_service.service;
 
 import com.devlife.profile_service.dto.ProfileDto;
+import com.devlife.profile_service.dto.UserDto;
 import com.devlife.profile_service.dto.apiRequestDto.InitProfileReq;
 import com.devlife.profile_service.dto.apiRequestDto.UpdateProfileByProfileIdReq;
 import com.devlife.profile_service.entity.ContactInformation;
@@ -32,7 +33,6 @@ public class ProfileService {
     private final UserMapper userMapper;
     private final ProfileRepository profileRepository;
     private final UserRepository userRepository;
-    private final ContactInformationRepository contactInformationRepository;
     private final CountryRepository countryRepository;
     private final GenderRepository genderRepository;
     private final AvatarRepository avatarRepository;
@@ -124,30 +124,32 @@ public class ProfileService {
     }
 
     @Transactional
-    public ProfileDto profileInit(InitProfileReq initProfileReq) {
+    public UserDto profileInit(InitProfileReq initProfileReq) {
         checkUser(initProfileReq.getExternalId(), initProfileReq.getNickname());
         final Profile profile = profileMapper.convertFromInitProfileReqToEntity(initProfileReq);
 
-        User savedUser = userRepository.save(User.builder()
-                .profile(profile)
-                .dateOfRegistration(OffsetDateTime.now(ZoneId.of("Z")))
-                .authUserId(initProfileReq.getExternalId())
-                .build());
-        contactInformationRepository.saveAll(initProfileReq.getContactInfoList().stream()
+        profile.setContactInformation(initProfileReq.getContactInfoList().stream()
                 .map(i -> ContactInformation.builder()
-                        .profile(savedUser.getProfile())
                         .contactType(ContactType.getByValue(i.getContactType()))
                         .primaryInfo(true)
                         .forAuth(true)
                         .value(i.getContactValue())
                         .build()).collect(Collectors.toSet()));
-        userPublisher.sendMessage(userMapper.convertToDto(savedUser), EventType.CREATE);
-        return  profileMapper.convertToDto(savedUser.getProfile());
+
+        User savedUser = userRepository.saveAndFlush(User.builder()
+                .profile(profile)
+                .dateOfRegistration(OffsetDateTime.now(ZoneId.of("Z")))
+                .authUserId(initProfileReq.getExternalId())
+                .build());
+
+        UserDto userDto = userMapper.convertToDto(savedUser);
+        userPublisher.sendMessage(userDto, EventType.CREATE);
+        return userDto;
     }
 
-    private void checkUser(Long externalId, String nickName) {
-        if (profileRepository.existsByNickname(nickName)) {
-            throw new NicknameAlreadyExistsException(nickName);
+    private void checkUser(Long externalId, String nickname) {
+        if (profileRepository.existsByNickname(nickname)) {
+            throw new NicknameAlreadyExistsException(nickname);
         }
         if (userRepository.existsByAuthUserId(externalId)) {
             throw new ExternalUserIdAlreadyExistsException(externalId);

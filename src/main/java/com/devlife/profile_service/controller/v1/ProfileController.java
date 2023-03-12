@@ -1,6 +1,7 @@
 package com.devlife.profile_service.controller.v1;
 
 import com.devlife.profile_service.dto.ProfileDto;
+import com.devlife.profile_service.dto.UserDto;
 import com.devlife.profile_service.dto.apiRequestDto.InitProfileReq;
 import com.devlife.profile_service.dto.apiRequestDto.UpdateProfileByProfileIdReq;
 import com.devlife.profile_service.service.ProfileService;
@@ -76,7 +77,7 @@ public class ProfileController {
 
     @PutMapping("/init")
     @Operation(summary = "Init profile while authorization", tags = {"profile"})
-    ResponseEntity<ProfileDto> initProfile(
+    ResponseEntity<UserDto> initProfile(
             @Parameter(description = "Authorization request", required = true, name = "initProfileReq")
             @Valid @RequestBody InitProfileReq initProfileReq
     ) {
