@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "prf_employer")
@@ -26,4 +27,11 @@ public class Employer {
     @Column(name = "external_id")
     private Long externalId;
 
+    @ManyToMany
+    @JoinTable(
+            name = "prf_employer_profile",
+            joinColumns = {@JoinColumn(name = "employer_id")},
+            inverseJoinColumns = {@JoinColumn(name = "profile_id")}
+    )
+    private Set<Profile> profiles;
 }

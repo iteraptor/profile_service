@@ -35,7 +35,7 @@ public class ContactInformation {
     private String value;
 
     @ManyToOne(targetEntity = Profile.class)
-    @JoinColumn(name = "profile_id", nullable = false, updatable = false, insertable = false)
+    @JoinColumn(name = "profile_id")
     private Profile profile;
 
 }

@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -66,16 +67,24 @@ public class Profile {
     @EqualsAndHashCode.Include
     private String personalInformation;
 
-    @ManyToMany(mappedBy = "profiles", targetEntity = Project.class)
-    @EqualsAndHashCode.Include
+    @ManyToMany(mappedBy = "profiles")
+    @EqualsAndHashCode.Exclude
     private Set<Project> projects;
+
+    @ManyToMany(mappedBy = "profiles")
+    @EqualsAndHashCode.Exclude
+    private Set<Employer> employers;
 
     @OneToOne(targetEntity = User.class, fetch = FetchType.EAGER, mappedBy = "profile")
     @EqualsAndHashCode.Exclude
     private User user;
 
-    @OneToMany
-    @JoinColumn(name = "profile_id")
+    @OneToMany(mappedBy = "profile", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @EqualsAndHashCode.Exclude
-    private Set<ContactInformation> contactInformation;
+    private Set<ContactInformation> contactInformation = new HashSet<>();
+
+    public void addContactInform(Set<ContactInformation> contactInformation) {
+        this.contactInformation.addAll(contactInformation);
+        contactInformation.forEach(i -> i.setProfile(this));
+    }
 }

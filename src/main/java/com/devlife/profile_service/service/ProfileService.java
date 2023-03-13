@@ -128,19 +128,19 @@ public class ProfileService {
         checkUser(initProfileReq.getExternalId(), initProfileReq.getNickname());
         final Profile profile = profileMapper.convertFromInitProfileReqToEntity(initProfileReq);
 
-        profile.setContactInformation(initProfileReq.getContactInfoList().stream()
+        User savedUser = userRepository.saveAndFlush(User.builder()
+                .profile(profile)
+                .dateOfRegistration(OffsetDateTime.now(ZoneId.of("Z")))
+                .authUserId(initProfileReq.getExternalId())
+                .build());
+
+        profile.addContactInform(initProfileReq.getContactInfoList().stream()
                 .map(i -> ContactInformation.builder()
                         .contactType(ContactType.getByValue(i.getContactType()))
                         .primaryInfo(true)
                         .forAuth(true)
                         .value(i.getContactValue())
                         .build()).collect(Collectors.toSet()));
-
-        User savedUser = userRepository.saveAndFlush(User.builder()
-                .profile(profile)
-                .dateOfRegistration(OffsetDateTime.now(ZoneId.of("Z")))
-                .authUserId(initProfileReq.getExternalId())
-                .build());
 
         UserDto userDto = userMapper.convertToDto(savedUser);
         userPublisher.sendMessage(userDto, EventType.CREATE);

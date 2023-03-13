@@ -36,7 +36,7 @@ public class Project {
     @JoinColumn(name = "employer_id")
     private Employer employer;
 
-    @ManyToMany(targetEntity = Profile.class)
+    @ManyToMany
     @JoinTable(
             name = "prf_project_profile",
             joinColumns = {@JoinColumn(name = "project_id")},
