@@ -11,6 +11,7 @@ import com.devlife.profile_service.exception.UserNotFoundException;
 import com.devlife.profile_service.repository.ProjectRepository;
 import com.devlife.profile_service.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageHeaders;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,7 @@ import java.util.Objects;
 import java.util.Set;
 
 @Service
+@Log4j2
 @RequiredArgsConstructor
 public class ProjectUserLinkConsumerService implements ConsumerService<ProjectUserLinkAsyncModel> {
     public static final String EVENT = "event";

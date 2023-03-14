@@ -12,6 +12,7 @@ import com.devlife.profile_service.mapper.ProjectMapper;
 import com.devlife.profile_service.repository.ProfileRepository;
 import com.devlife.profile_service.repository.ProjectRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageHeaders;
 import org.springframework.stereotype.Service;
@@ -22,6 +23,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
+@Log4j2
 @RequiredArgsConstructor
 public class ProjectConsumerService implements ConsumerService<ProjectAsyncModel> {
     public static final String EVENT = "event";
