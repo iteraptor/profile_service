@@ -119,7 +119,6 @@ public class ProfileService {
         return !profileRepository.existsById(id);
     }
 
-    @Transactional
     public UserDto profileInit(InitProfileReq initProfileReq) {
         UserDto userDto = userOperationsService.initUserWithProfileAndContactInfo(initProfileReq);
         userPublisher.sendMessage(userDto, EventType.CREATE);
